@@ -6,14 +6,14 @@ import '../../data/entities/remote_news_response.dart';
 import '../pages/news_detail_page.dart';
 
 class NewsCard extends StatefulWidget {
+  final int index;
+  final Article article;
+  final bool isFavourite;
   const NewsCard(
       {super.key,
       required this.index,
       required this.article,
       required this.isFavourite});
-  final int index;
-  final Article article;
-  final bool isFavourite;
 
   @override
   State<NewsCard> createState() => _NewsCardState();
@@ -106,7 +106,7 @@ class _NewsCardState extends State<NewsCard> {
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                       color: Color(0xFFB9B9B9),
-                      fontSize: 16,
+                      fontSize: 13,
                     ),
                   ),
                 ],

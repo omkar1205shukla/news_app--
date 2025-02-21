@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_assessment/features/news/presentation/model/category_item.dart';
+import 'package:news_assessment/features/news/presentation/pages/profile_screen.dart';
 import 'package:news_assessment/features/news/presentation/widgets/news_screen.dart';
 
 class NewsDashboard extends StatefulWidget {
@@ -25,38 +26,68 @@ class _NewsDashboardState extends State<NewsDashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
-        body: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3, // number of items in each row
-            mainAxisSpacing: 10.0, // spacing between rows
-            crossAxisSpacing: 10.0, // spacing between columns
-          ),
-          padding: const EdgeInsets.all(8.0), // padding around the grid
-          itemCount: items.length, // total number of items
-          itemBuilder: (context, index) {
-            return InkWell(
+      appBar: AppBar(
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 16.0),
+            child: GestureDetector(
               onTap: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => NewsCategory(
-                              category: items[index].itemName,
-                            )));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ProfileScreen(),
+                  ),
+                );
               },
-              child: Container(
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      image: DecorationImage(
-                          image: AssetImage(items[index].itemPath),
-                          fit: BoxFit.cover)),
-                  child: Text(
-                    items[index].itemName,
-                    style: const TextStyle(color: Colors.white, fontSize: 16),
-                  )),
-            );
-          },
-        ));
+              child: const CircleAvatar(
+                backgroundColor: Colors.grey,
+                radius: 20,
+                child: Icon(
+                  Icons.person,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+      body: GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3, // number of items in each row
+          mainAxisSpacing: 10.0, // spacing between rows
+          crossAxisSpacing: 10.0, // spacing between columns
+        ),
+        padding: const EdgeInsets.all(8.0), // padding around the grid
+        itemCount: items.length, // total number of items
+        itemBuilder: (context, index) {
+          return InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => NewsCategory(
+                    category: items[index].itemName,
+                  ),
+                ),
+              );
+            },
+            child: Container(
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                image: DecorationImage(
+                  image: AssetImage(items[index].itemPath),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: Text(
+                items[index].itemName,
+                style: const TextStyle(color: Colors.white, fontSize: 16),
+              ),
+            ),
+          );
+        },
+      ),
+    );
   }
 }
